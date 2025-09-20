@@ -1,0 +1,31 @@
+name: MrMat Maturity Reporting Action
+author: MrMat
+description: A GitHub Action to report on project maturity
+
+inputs:
+    ecosystem:
+        description: Ecosystem to generate the version for
+        required: true
+
+    release_branch_ref:
+        description: Fully qualified ref to the release branch
+        required: false
+        default: refs/heads/main
+
+    major:
+        description: Major version number
+        required: false
+        default: '0'
+
+    minor:
+        description: Minor version number
+        required: false
+        default: '0'
+
+outputs:
+    version:
+        description: The calculated version string
+
+runs:
+    using: node24
+    main: dist/index.js
