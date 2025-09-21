@@ -1,24 +1,22 @@
 import * as core from '@actions/core'
-import * as github from '@actions/github'
 
-import { get_version } from './version.js'
+import { parse_lint_report } from './lint.js'
+import { parse_coverage_report } from './coverage.js'
 
 export function run() {
     try {
-        const ecosystem: string = core.getInput('ecosystem')
-        const release_branch_ref: string = core.getInput('release_branch_ref')
-        const major: string = core.getInput('major')
-        const minor: string = core.getInput('minor')
+        const lint_report: string = core.getInput('lint_report')
+        const unit_test_report: string = core.getInput('unit_test_report')
+        const coverage_report: string = core.getInput('coverage_report')
 
-        const version = get_version(
-            major,
-            minor,
-            github.context.runNumber,
-            github.context.ref === release_branch_ref,
-            ecosystem
-        )
-        core.info(`Version: ${version}`)
-        core.setOutput('version', version)
+        core.info(`Reading unit test report from ${unit_test_report}}`)
+        core.info(`Reading coverage report from ${coverage_report}}`)
+
+        let report: string = '# Maturity Report'
+        report += parse_lint_report(lint_report).markdown()
+        report += parse_coverage_report(coverage_report).markdown()
+        core.info(report)
+        core.setOutput('report', report)
     } catch (error) {
         if (error instanceof Error) core.setFailed(error.message)
     }

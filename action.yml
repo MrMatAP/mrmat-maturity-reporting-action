@@ -3,28 +3,21 @@ author: MrMat
 description: A GitHub Action to report on project maturity
 
 inputs:
-    ecosystem:
-        description: Ecosystem to generate the version for
-        required: true
-
-    release_branch_ref:
-        description: Fully qualified ref to the release branch
+    lint_report:
+        description: Path to the lint report
         required: false
-        default: refs/heads/main
 
-    major:
-        description: Major version number
+    unit_test_report:
+        description: Path to the unit test report
         required: false
-        default: '0'
 
-    minor:
-        description: Minor version number
+    coverage_report:
+        description: Path to the coverage report
         required: false
-        default: '0'
 
 outputs:
-    version:
-        description: The calculated version string
+    report:
+        description: The generated maturity report
 
 runs:
     using: node24
