@@ -40,16 +40,16 @@ export class UnitTestReport implements Report {
     }
 }
 
-function junit_report(report_path: string) {
+function junit_report(report_path: string): UnitTestReport {
     const xml = fs.readFileSync(report_path, { encoding: 'utf8' })
     const parser = new XMLParser({ ignoreAttributes: false })
     const doc = parser.parse(xml)
     const report = new UnitTestReport('junit')
-    report.errors = parseInt(doc.testsuite['@_errors'])
-    report.failures = parseInt(doc.testsuite['@_failures'])
-    report.skipped = parseInt(doc.testsuite['@_skipped'])
-    report.tests = parseInt(doc.testsuite['@_tests'])
-    report.time = parseFloat(doc.testsuite['@_time'])
+    report.errors = parseInt(doc.testsuites.testsuite['@_errors'])
+    report.failures = parseInt(doc.testsuites.testsuite['@_failures'])
+    report.skipped = parseInt(doc.testsuites.testsuite['@_skipped'])
+    report.tests = parseInt(doc.testsuites.testsuite['@_tests'])
+    report.time = parseFloat(doc.testsuites.testsuite['@_time'])
     return report
 }
 
