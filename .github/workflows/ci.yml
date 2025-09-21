@@ -71,6 +71,8 @@ jobs:
               with:
                   name: Coverage Results
                   path: build/coverage-summary.json
+            - name: Debug
+              run: find build/
             - name: Test local execution
               id: local-reporting
               uses: ./
