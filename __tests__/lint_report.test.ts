@@ -6,12 +6,13 @@ import { parse_lint_report, LinterReport } from '../src/lint.js'
 
 describe('Linter Reporting', () => {
     it('States no linter is present without a report', () => {
-        expect(parse_lint_report('/foo/bar.xml').markdown()).toContain(
-            'No linting report present'
-        )
+        expect(
+            parse_lint_report('cobertura', '/foo/bar.xml').markdown()
+        ).toContain('No linting report present')
     })
     test.each([
         {
+            lint_format: 'mypy',
             lint_report: '__tests__/samples/python/lint.xml',
             expected: {
                 tool: 'mypy',
@@ -29,8 +30,17 @@ describe('Linter Reporting', () => {
                     'src/mhpython/finance/pdf_parser.py:158: error: Value of type "dict[Any, Any] | BaseModel" is not indexable  [index]'
                 ]
             } as LinterReport
+        },
+        {
+            lint_format: 'eslint',
+            lint_report: '__tests__/samples/typescript/lint.json',
+            expected: {
+                tool: 'eslint'
+            }
         }
-    ])(`Returns $expected`, ({ lint_report, expected }) => {
-        expect(parse_lint_report(lint_report)).toMatchObject(expected)
+    ])('Returns $expected', ({ lint_format, lint_report, expected }) => {
+        expect(parse_lint_report(lint_format, lint_report)).toMatchObject(
+            expected
+        )
     })
 })

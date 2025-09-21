@@ -3,14 +3,26 @@ author: MrMat
 description: A GitHub Action to report on project maturity
 
 inputs:
+    lint_format:
+        description: Format of the lint report (one of 'mypy', 'eslint')
+        required: false
+        default: eslint
     lint_report:
         description: Path to the lint report
         required: false
 
+    unit_test_format:
+        description: Format of the unit test report
+        required: false
+        default: junit
     unit_test_report:
         description: Path to the unit test report
         required: false
 
+    coverage_report_format:
+        description: Format of the coverage report
+        required: false
+        default: cobertura
     coverage_report:
         description: Path to the coverage report
         required: false

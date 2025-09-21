@@ -65,29 +65,34 @@ export class CoverageReport implements Report {
     }
 }
 
-function cobertura_report(xml): CoverageReport {
-    const report = new CoverageReport('cobertura')
-    report.version = xml.coverage['@_version']
-    report.timestamp = xml.coverage['@_timestamp']
-    report.total_lines = parseInt(xml.coverage['@_lines-valid'])
-    report.total_lines_covered = parseInt(xml.coverage['@_lines-covered'])
-    report.total_lines_pct = parseFloat(xml.coverage['@_line-rate'])
-    report.total_branches = parseInt(xml.coverage['@_branches-valid'])
-    report.total_branches_covered = parseInt(xml.coverage['@_branches-covered'])
-    report.total_branches_pct = parseFloat(xml.coverage['@_branch-rate'])
-    report.complexity = parseInt(xml.coverage['@_complexity'])
-    return report
-}
-
-export function parse_coverage_report(coverage_report: string): Report {
-    const report_path = path.resolve(coverage_report)
-    if (!fs.existsSync(report_path)) return new CoverageReport('missing')
-    core.info('Parsing coverage report: ' + report_path)
+function cobertura_report(report_path: string): CoverageReport {
     const xml = fs.readFileSync(report_path, { encoding: 'utf8' })
     const parser = new XMLParser({ ignoreAttributes: false })
     const doc = parser.parse(xml)
-    if (Object.hasOwn(doc, 'coverage')) {
-        return cobertura_report(doc)
+    const report = new CoverageReport('cobertura')
+    report.version = doc.coverage['@_version']
+    report.timestamp = doc.coverage['@_timestamp']
+    report.total_lines = parseInt(doc.coverage['@_lines-valid'])
+    report.total_lines_covered = parseInt(doc.coverage['@_lines-covered'])
+    report.total_lines_pct = parseFloat(doc.coverage['@_line-rate'])
+    report.total_branches = parseInt(doc.coverage['@_branches-valid'])
+    report.total_branches_covered = parseInt(doc.coverage['@_branches-covered'])
+    report.total_branches_pct = parseFloat(doc.coverage['@_branch-rate'])
+    report.complexity = parseInt(doc.coverage['@_complexity'])
+    return report
+}
+
+export function parse_coverage_report(
+    coverage_format: string,
+    coverage_report: string
+): Report {
+    const report_path = path.resolve(coverage_report)
+    if (!fs.existsSync(report_path)) return new CoverageReport('missing')
+    core.info('Parsing coverage report: ' + report_path)
+    switch (coverage_format.toLowerCase()) {
+        case 'cobertura':
+            return cobertura_report(report_path)
+        default:
+            throw new Error(`Unknown coverage format: ${coverage_format}`)
     }
-    throw new Error(`Unknown linter: ${doc.testsuite['@_name']}`)
 }

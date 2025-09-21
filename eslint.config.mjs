@@ -8,6 +8,7 @@ import tsParser from '@typescript-eslint/parser'
 import _import from 'eslint-plugin-import'
 import jest from 'eslint-plugin-jest'
 import prettier from 'eslint-plugin-prettier'
+import stylistic from '@stylistic/eslint-plugin'
 import globals from 'globals'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -36,7 +37,8 @@ export default [
             import: fixupPluginRules(_import),
             jest,
             prettier,
-            '@typescript-eslint': typescriptEslint
+            '@typescript-eslint': typescriptEslint,
+            '@stylistic': stylistic
         },
 
         languageOptions: {
@@ -67,15 +69,25 @@ export default [
         },
 
         rules: {
-            camelcase: 'off',
-            'eslint-comments/no-use': 'off',
-            'eslint-comments/no-unused-disable': 'off',
-            'i18n-text/no-en': 'off',
-            'import/no-namespace': 'off',
-            'no-console': 'off',
-            'no-shadow': 'off',
-            'no-unused-vars': 'off',
-            'prettier/prettier': 'error'
+            '@stylistic/indent': ['warn', 4],
+            '@stylistic/no-trailing-spaces': 'error',
+            'prettier/prettier': 'error',
+            eqeqeq: 'error',
+            'no-var': 'error',
+            'prefer-const': 'error',
+            'prefer-arrow-callback': 'error',
+            '@stylistic/quotes': ['warn', 'single', { avoidEscape: true }],
+            'no-restricted-properties': [
+                'error',
+                {
+                    object: 'describe',
+                    property: 'only'
+                },
+                {
+                    object: 'it',
+                    property: 'only'
+                }
+            ]
         }
     }
 ]

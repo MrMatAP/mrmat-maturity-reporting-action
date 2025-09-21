@@ -29,6 +29,7 @@ import require$$0$9 from 'diagnostics_channel';
 import require$$2$2 from 'child_process';
 import require$$6$1 from 'timers';
 import * as fs from 'node:fs';
+import path from 'node:path';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -28991,31 +28992,42 @@ class LinterReport {
         return report;
     }
 }
-function mypy_report(xml) {
+function mypy_report(report_path) {
+    const xml = fs.readFileSync(report_path, { encoding: 'utf8' });
+    const parser = new XMLParser({ ignoreAttributes: false });
+    const doc = parser.parse(xml);
     const report = new LinterReport('mypy');
-    report.errors = parseInt(xml.testsuite['@_errors']);
-    report.failures = parseInt(xml.testsuite['@_failures']);
-    report.skips = parseInt(xml.testsuite['@_skips']);
-    report.tests = parseInt(xml.testsuite['@_tests']);
-    report.duration = xml.testsuite['@_time'];
-    report.messages = xml.testsuite.testcase.failure['#text'].split('\n');
+    report.errors = parseInt(doc.testsuite['@_errors']);
+    report.failures = parseInt(doc.testsuite['@_failures']);
+    report.skips = parseInt(doc.testsuite['@_skips']);
+    report.tests = parseInt(doc.testsuite['@_tests']);
+    report.duration = doc.testsuite['@_time'];
+    report.messages = doc.testsuite.testcase.failure['#text'].split('\n');
     return report;
 }
-function parse_lint_report(lint_report) {
+function eslint_report(report_path) {
+    const raw = fs.readFileSync(report_path, { encoding: 'utf8' });
+    const doc = JSON.parse(raw);
+    const report = new LinterReport('eslint');
+    doc.each((e) => (report.errors += e.errorCount));
+    doc.each((e) => (report.failures += e.fatalErrorCount));
+    report.tests = doc.length;
+    return report;
+}
+function parse_lint_report(lint_format, lint_report) {
     const report_path = require$$1.resolve(lint_report);
     if (!fs.existsSync(report_path)) {
         const report = new LinterReport('missing');
         return report;
     }
     coreExports.info(`Parsing lint report: ${report_path}`);
-    const xml = fs.readFileSync(report_path, { encoding: 'utf8' });
-    const parser = new XMLParser({ ignoreAttributes: false });
-    const doc = parser.parse(xml);
-    switch (doc.testsuite['@_name']) {
+    switch (lint_format.toLowerCase()) {
         case 'mypy':
-            return mypy_report(doc);
+            return mypy_report(report_path);
+        case 'eslint':
+            return eslint_report(report_path);
         default:
-            throw new Error(`Unknown linter: ${doc.testsuite['@_name']}`);
+            throw new Error(`Unknown linter format: ${lint_format}`);
     }
 }
 
@@ -29065,43 +29077,75 @@ class CoverageReport {
         return report;
     }
 }
-function cobertura_report(xml) {
+function cobertura_report(report_path) {
+    const xml = fs.readFileSync(report_path, { encoding: 'utf8' });
+    const parser = new XMLParser({ ignoreAttributes: false });
+    const doc = parser.parse(xml);
     const report = new CoverageReport('cobertura');
-    report.version = xml.coverage['@_version'];
-    report.timestamp = xml.coverage['@_timestamp'];
-    report.total_lines = parseInt(xml.coverage['@_lines-valid']);
-    report.total_lines_covered = parseInt(xml.coverage['@_lines-covered']);
-    report.total_lines_pct = parseFloat(xml.coverage['@_line-rate']);
-    report.total_branches = parseInt(xml.coverage['@_branches-valid']);
-    report.total_branches_covered = parseInt(xml.coverage['@_branches-covered']);
-    report.total_branches_pct = parseFloat(xml.coverage['@_branch-rate']);
-    report.complexity = parseInt(xml.coverage['@_complexity']);
+    report.version = doc.coverage['@_version'];
+    report.timestamp = doc.coverage['@_timestamp'];
+    report.total_lines = parseInt(doc.coverage['@_lines-valid']);
+    report.total_lines_covered = parseInt(doc.coverage['@_lines-covered']);
+    report.total_lines_pct = parseFloat(doc.coverage['@_line-rate']);
+    report.total_branches = parseInt(doc.coverage['@_branches-valid']);
+    report.total_branches_covered = parseInt(doc.coverage['@_branches-covered']);
+    report.total_branches_pct = parseFloat(doc.coverage['@_branch-rate']);
+    report.complexity = parseInt(doc.coverage['@_complexity']);
     return report;
 }
-function parse_coverage_report(coverage_report) {
+function parse_coverage_report(coverage_format, coverage_report) {
     const report_path = require$$1.resolve(coverage_report);
     if (!fs.existsSync(report_path))
         return new CoverageReport('missing');
     coreExports.info('Parsing coverage report: ' + report_path);
-    const xml = fs.readFileSync(report_path, { encoding: 'utf8' });
-    const parser = new XMLParser({ ignoreAttributes: false });
-    const doc = parser.parse(xml);
-    if (Object.hasOwn(doc, 'coverage')) {
-        return cobertura_report(doc);
+    switch (coverage_format.toLowerCase()) {
+        case 'cobertura':
+            return cobertura_report(report_path);
+        default:
+            throw new Error(`Unknown coverage format: ${coverage_format}`);
     }
-    throw new Error(`Unknown linter: ${doc.testsuite['@_name']}`);
+}
+
+class UnitTestReport {
+    tool = 'Unknown';
+    constructor(tool) {
+        this.tool = tool ?? this.tool;
+    }
+    markdown() {
+        let report = '## Unit Test Report\n\n';
+        if (this.tool === 'missing') {
+            report += 'No unit test report present\n\n';
+            return report;
+        }
+        report += `Tool: ${this.tool}\n`;
+        return report;
+    }
+}
+function parse_unit_test_report(unit_test_format, unit_test_report) {
+    const report_path = path.resolve(unit_test_report);
+    if (!fs.existsSync(report_path))
+        return new UnitTestReport('missing');
+    coreExports.info(`Parsing unit test report: ${report_path}`);
+    switch (unit_test_format.toLowerCase()) {
+        default:
+            throw new Error(`Unknown unit test format: ${unit_test_format}`);
+    }
 }
 
 function run() {
     try {
+        const lint_format = coreExports.getInput('lint_format');
         const lint_report = coreExports.getInput('lint_report');
+        const unit_test_format = coreExports.getInput('unit_test_format');
         const unit_test_report = coreExports.getInput('unit_test_report');
+        const coverage_format = coreExports.getInput('coverage_format');
         const coverage_report = coreExports.getInput('coverage_report');
         coreExports.info(`Reading unit test report from ${unit_test_report}}`);
         coreExports.info(`Reading coverage report from ${coverage_report}}`);
         let report = '# Maturity Report\n\n';
-        report += parse_lint_report(lint_report).markdown();
-        report += parse_coverage_report(coverage_report).markdown();
+        report += parse_lint_report(lint_format, lint_report).markdown();
+        report += parse_unit_test_report(unit_test_format, unit_test_report).markdown();
+        report += parse_coverage_report(coverage_format, coverage_report).markdown();
         coreExports.info(report);
         coreExports.setOutput('report', report);
     }

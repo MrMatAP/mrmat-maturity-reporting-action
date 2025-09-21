@@ -47,31 +47,48 @@ export class LinterReport implements Report {
     }
 }
 
-function mypy_report(xml): LinterReport {
+function mypy_report(report_path: string): LinterReport {
+    const xml = fs.readFileSync(report_path, { encoding: 'utf8' })
+    const parser = new XMLParser({ ignoreAttributes: false })
+    const doc = parser.parse(xml)
     const report = new LinterReport('mypy')
-    report.errors = parseInt(xml.testsuite['@_errors'])
-    report.failures = parseInt(xml.testsuite['@_failures'])
-    report.skips = parseInt(xml.testsuite['@_skips'])
-    report.tests = parseInt(xml.testsuite['@_tests'])
-    report.duration = xml.testsuite['@_time']
-    report.messages = xml.testsuite.testcase.failure['#text'].split('\n')
+    report.errors = parseInt(doc.testsuite['@_errors'])
+    report.failures = parseInt(doc.testsuite['@_failures'])
+    report.skips = parseInt(doc.testsuite['@_skips'])
+    report.tests = parseInt(doc.testsuite['@_tests'])
+    report.duration = doc.testsuite['@_time']
+    report.messages = doc.testsuite.testcase.failure['#text'].split('\n')
     return report
 }
 
-export function parse_lint_report(lint_report: string): Report {
+function eslint_report(report_path: string): LinterReport {
+    const raw = fs.readFileSync(report_path, { encoding: 'utf8' })
+    const doc = JSON.parse(raw)
+    const report = new LinterReport('eslint')
+    report.errors = 0
+    doc.forEach((e) => (report.errors += e.errorCount))
+    report.failures = 0
+    doc.forEach((e) => (report.failures += e.fatalErrorCount))
+    report.tests = doc.length
+    return report
+}
+
+export function parse_lint_report(
+    lint_format: string,
+    lint_report: string
+): Report {
     const report_path = path.resolve(lint_report)
     if (!fs.existsSync(report_path)) {
         const report = new LinterReport('missing')
         return report
     }
     core.info(`Parsing lint report: ${report_path}`)
-    const xml = fs.readFileSync(report_path, { encoding: 'utf8' })
-    const parser = new XMLParser({ ignoreAttributes: false })
-    const doc = parser.parse(xml)
-    switch (doc.testsuite['@_name']) {
+    switch (lint_format.toLowerCase()) {
         case 'mypy':
-            return mypy_report(doc)
+            return mypy_report(report_path)
+        case 'eslint':
+            return eslint_report(report_path)
         default:
-            throw new Error(`Unknown linter: ${doc.testsuite['@_name']}`)
+            throw new Error(`Unknown linter format: ${lint_format}`)
     }
 }

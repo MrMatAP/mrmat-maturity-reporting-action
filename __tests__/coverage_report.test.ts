@@ -6,13 +6,14 @@ import { parse_coverage_report } from '../src/coverage.js'
 
 describe('Coverage Reporting', () => {
     it('States no coverage is present without a report', () => {
-        expect(parse_coverage_report('/foo/bar.xml').markdown()).toContain(
-            'No coverage report present'
-        )
+        expect(
+            parse_coverage_report('Cobertura', '/foo/bar.xml').markdown()
+        ).toContain('No coverage report present')
     })
     test.each([
         {
-            lint_report: '__tests__/samples/python/coverage.xml',
+            coverage_format: 'cobertura',
+            coverage_report: '__tests__/samples/python/coverage.xml',
             expected: {
                 tool: 'cobertura',
                 version: '7.10.6',
@@ -26,7 +27,12 @@ describe('Coverage Reporting', () => {
                 complexity: 0
             }
         }
-    ])(`Returns $expected`, ({ lint_report, expected }) => {
-        expect(parse_coverage_report(lint_report)).toMatchObject(expected)
-    })
+    ])(
+        'Returns $expected',
+        ({ coverage_format, coverage_report, expected }) => {
+            expect(
+                parse_coverage_report(coverage_format, coverage_report)
+            ).toMatchObject(expected)
+        }
+    )
 })
