@@ -6,7 +6,7 @@ This action reports on project maturity in the form of a comment on a PR.
 
 ### lint_format
 
-Format of the lint report (one of 'mypy', 'eslint'). Defaults to 'eslint'.
+Format of the lint report (one of 'mypy', 'eslint', 'sarif'). Defaults to 'eslint'.
 
 ### lint_report
 

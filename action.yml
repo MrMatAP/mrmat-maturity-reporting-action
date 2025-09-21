@@ -4,7 +4,7 @@ description: A GitHub Action to report on project maturity
 
 inputs:
     lint_format:
-        description: Format of the lint report (one of 'mypy', 'eslint')
+        description: Format of the lint report (one of 'mypy', 'eslint', 'sarif')
         required: false
         default: eslint
     lint_report:

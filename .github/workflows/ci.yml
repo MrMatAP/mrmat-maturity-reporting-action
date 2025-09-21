@@ -83,7 +83,7 @@ jobs:
               id: local-reporting
               uses: ./
               with:
-                  lint_format: eslint
+                  lint_format: sarif
                   lint_report: build/lint.json
                   unit_test_format: junit
                   unit_test_report: build/junit.xml
