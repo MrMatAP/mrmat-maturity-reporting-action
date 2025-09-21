@@ -6,7 +6,7 @@ import * as path from 'path'
 import { Report } from './report.js'
 
 export class LinterReport implements Report {
-    linter: string = 'Unknown'
+    tool: string = 'Unknown'
     errors?: number
     failures?: number
     skips?: number
@@ -15,7 +15,7 @@ export class LinterReport implements Report {
     messages?: string[]
 
     constructor(
-        linter?: string,
+        tool: string,
         errors?: number,
         failures?: number,
         skips?: number,
@@ -23,7 +23,7 @@ export class LinterReport implements Report {
         duration?: string,
         messages?: string[]
     ) {
-        this.linter = linter ?? this.linter
+        this.tool = tool ?? this.tool
         this.errors = errors ?? this.errors
         this.failures = failures ?? this.failures
         this.skips = skips ?? this.skips
@@ -33,18 +33,22 @@ export class LinterReport implements Report {
     }
 
     markdown(): string {
-        let report = '## Linter Report\n'
-        report += `Linter: ${this.linter}\n\n`
+        let report = '## Linter Report\n\n'
+        if (this.tool === 'missing') {
+            report += 'No linting report present\n\n'
+            return report
+        }
+        report += `Linter: ${this.tool}\n\n`
         report += '| Errors | Failures | Skips | Tests | Duration |\n'
         report += '| --- | --- | --- | --- | --- |\n'
         report += `| ${this.errors} | ${this.failures} | ${this.skips} | ${this.tests} | ${this.duration} |\n`
+        report += '\n'
         return report
     }
 }
 
 function mypy_report(xml): LinterReport {
-    const report = new LinterReport()
-    report.linter = 'mypy'
+    const report = new LinterReport('mypy')
     report.errors = parseInt(xml.testsuite['@_errors'])
     report.failures = parseInt(xml.testsuite['@_failures'])
     report.skips = parseInt(xml.testsuite['@_skips'])
@@ -56,6 +60,10 @@ function mypy_report(xml): LinterReport {
 
 export function parse_lint_report(lint_report: string): Report {
     const report_path = path.resolve(lint_report)
+    if (!fs.existsSync(report_path)) {
+        const report = new LinterReport('missing')
+        return report
+    }
     core.info(`Parsing lint report: ${report_path}`)
     const xml = fs.readFileSync(report_path, { encoding: 'utf8' })
     const parser = new XMLParser({ ignoreAttributes: false })

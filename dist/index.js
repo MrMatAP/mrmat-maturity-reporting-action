@@ -28961,15 +28961,15 @@ class XMLParser{
 }
 
 class LinterReport {
-    linter = 'Unknown';
+    tool = 'Unknown';
     errors;
     failures;
     skips;
     tests;
     duration;
     messages;
-    constructor(linter, errors, failures, skips, tests, duration, messages) {
-        this.linter = linter ?? this.linter;
+    constructor(tool, errors, failures, skips, tests, duration, messages) {
+        this.tool = tool ?? this.tool;
         this.errors = errors ?? this.errors;
         this.failures = failures ?? this.failures;
         this.skips = skips ?? this.skips;
@@ -28978,17 +28978,21 @@ class LinterReport {
         this.messages = messages ?? this.messages;
     }
     markdown() {
-        let report = '## Linter Report\n';
-        report += `Linter: ${this.linter}\n\n`;
+        let report = '## Linter Report\n\n';
+        if (this.tool === 'missing') {
+            report += 'No linting report present\n\n';
+            return report;
+        }
+        report += `Linter: ${this.tool}\n\n`;
         report += '| Errors | Failures | Skips | Tests | Duration |\n';
         report += '| --- | --- | --- | --- | --- |\n';
         report += `| ${this.errors} | ${this.failures} | ${this.skips} | ${this.tests} | ${this.duration} |\n`;
+        report += '\n';
         return report;
     }
 }
 function mypy_report(xml) {
-    const report = new LinterReport();
-    report.linter = 'mypy';
+    const report = new LinterReport('mypy');
     report.errors = parseInt(xml.testsuite['@_errors']);
     report.failures = parseInt(xml.testsuite['@_failures']);
     report.skips = parseInt(xml.testsuite['@_skips']);
@@ -28999,6 +29003,10 @@ function mypy_report(xml) {
 }
 function parse_lint_report(lint_report) {
     const report_path = require$$1.resolve(lint_report);
+    if (!fs.existsSync(report_path)) {
+        const report = new LinterReport('missing');
+        return report;
+    }
     coreExports.info(`Parsing lint report: ${report_path}`);
     const xml = fs.readFileSync(report_path, { encoding: 'utf8' });
     const parser = new XMLParser({ ignoreAttributes: false });
@@ -29023,19 +29031,26 @@ class CoverageReport {
     total_branches_pct;
     complexity;
     constructor(tool, version, timestamp, total_lines, total_lines_covered, total_lines_pct, total_branches, total_branches_covered, total_branches_valid, complexity) {
-        this.tool = tool;
-        this.version = version;
-        this.timestamp = timestamp;
-        this.total_lines = total_lines;
-        this.total_lines_covered = total_lines_covered;
-        this.total_lines_pct = total_lines_pct;
-        this.total_branches = total_branches;
-        this.total_branches_covered = total_branches_covered;
-        this.total_branches_pct = total_branches_valid;
-        this.complexity = complexity;
+        this.tool = tool ?? this.tool;
+        this.version = version ?? this.version;
+        this.timestamp = timestamp ?? this.timestamp;
+        this.total_lines = total_lines ?? this.total_lines;
+        this.total_lines_covered =
+            total_lines_covered ?? this.total_lines_covered;
+        this.total_lines_pct = total_lines_pct ?? this.total_lines_pct;
+        this.total_branches = total_branches ?? this.total_branches;
+        this.total_branches_covered =
+            total_branches_covered ?? this.total_branches_covered;
+        this.total_branches_pct =
+            total_branches_valid ?? this.total_branches_pct;
+        this.complexity = complexity ?? this.complexity;
     }
     markdown() {
-        let report = '## Coverage Report\n';
+        let report = '## Coverage Report\n\n';
+        if (this.tool === 'missing') {
+            report += 'No coverage report present\n\n';
+            return report;
+        }
         report += `Tool: ${this.tool}\n`;
         report += `Version: ${this.version}\n`;
         report += `Timestamp: ${this.timestamp}\n\n`;
@@ -29046,6 +29061,7 @@ class CoverageReport {
         report += '| Branches | Covered | Valid |\n';
         report += '| --- | --- | --- |\n';
         report += `| ${this.total_branches} | ${this.total_branches_covered} | ${this.total_branches_pct} |\n\n`;
+        report += '\n';
         return report;
     }
 }
@@ -29064,6 +29080,8 @@ function cobertura_report(xml) {
 }
 function parse_coverage_report(coverage_report) {
     const report_path = require$$1.resolve(coverage_report);
+    if (!fs.existsSync(report_path))
+        return new CoverageReport('missing');
     coreExports.info('Parsing coverage report: ' + report_path);
     const xml = fs.readFileSync(report_path, { encoding: 'utf8' });
     const parser = new XMLParser({ ignoreAttributes: false });
@@ -29081,7 +29099,7 @@ function run() {
         const coverage_report = coreExports.getInput('coverage_report');
         coreExports.info(`Reading unit test report from ${unit_test_report}}`);
         coreExports.info(`Reading coverage report from ${coverage_report}}`);
-        let report = '# Maturity Report';
+        let report = '# Maturity Report\n\n';
         report += parse_lint_report(lint_report).markdown();
         report += parse_coverage_report(coverage_report).markdown();
         coreExports.info(report);

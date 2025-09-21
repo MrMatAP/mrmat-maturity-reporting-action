@@ -5,11 +5,16 @@
 import { parse_lint_report, LinterReport } from '../src/lint.js'
 
 describe('Linter Reporting', () => {
+    it('States no linter is present without a report', () => {
+        expect(parse_lint_report('/foo/bar.xml').markdown()).toContain(
+            'No linting report present'
+        )
+    })
     test.each([
         {
             lint_report: '__tests__/samples/python/lint.xml',
             expected: {
-                linter: 'mypy',
+                tool: 'mypy',
                 errors: 0,
                 failures: 1,
                 skips: 0,

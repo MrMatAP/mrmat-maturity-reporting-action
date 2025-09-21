@@ -12,7 +12,7 @@ export function run() {
         core.info(`Reading unit test report from ${unit_test_report}}`)
         core.info(`Reading coverage report from ${coverage_report}}`)
 
-        let report: string = '# Maturity Report'
+        let report: string = '# Maturity Report\n\n'
         report += parse_lint_report(lint_report).markdown()
         report += parse_coverage_report(coverage_report).markdown()
         core.info(report)

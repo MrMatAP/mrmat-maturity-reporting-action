@@ -5,6 +5,11 @@
 import { parse_coverage_report } from '../src/coverage.js'
 
 describe('Coverage Reporting', () => {
+    it('States no coverage is present without a report', () => {
+        expect(parse_coverage_report('/foo/bar.xml').markdown()).toContain(
+            'No coverage report present'
+        )
+    })
     test.each([
         {
             lint_report: '__tests__/samples/python/coverage.xml',

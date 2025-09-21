@@ -44,7 +44,9 @@ jobs:
             - name: Install Dependencies
               run: npm ci
             - name: Apply version
-              run: npm version ${{ needs.version.outputs.version }} --no-git-tag-version
+              run:
+                  npm version ${{ needs.version.outputs.version }}
+                  --no-git-tag-version
             - name: Build
               run: npm run bundle
             - name: Lint
@@ -53,36 +55,37 @@ jobs:
               if: ${{ github.event_name == 'pull_request' }}
               uses: actions/upload-artifact@v4
               with:
-                name: Lint Results
-                path: build/lint.json
+                  name: Lint Results
+                  path: build/lint.json
             - name: Test
               run: npm run ci-test
             - name: Upload Unit Test results
               if: ${{ github.event_name == 'pull_request' }}
               uses: actions/upload-artifact@v4
               with:
-                name: Unit Test Results
-                path: build/junit.xml
+                  name: Unit Test Results
+                  path: build/junit.xml
             - name: Upload Coverage results
               if: ${{ github.event_name == 'pull_request' }}
               uses: actions/upload-artifact@v4
               with:
-                name: Coverage Results
-                path: build/coverage-summary.json
+                  name: Coverage Results
+                  path: build/coverage-summary.json
             - name: Test local execution
               id: local-reporting
               uses: ./
               with:
-                lint_report: build/lint.json
-                unit_test_report: build/junit.xml
-                coverage_report: build/coverage-summary.json
+                  lint_report: build/lint.json
+                  unit_test_report: build/junit.xml
+                  coverage_report: build/coverage-summary.json
             - name: Print Report
               run: echo "${{ steps.local-reporting.outputs.report }}"
 
     # The release job only executes when pushing to the main branch
     release:
         if:
-            ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+            ${{ github.event_name == 'push' && github.ref == 'refs/heads/main'
+            }}
         runs-on: ubuntu-latest
         permissions:
             contents: write
