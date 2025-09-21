@@ -5,9 +5,9 @@ export default {
     clearMocks: true,
     collectCoverage: true,
     collectCoverageFrom: ['./src/**'],
-    coverageDirectory: './coverage',
+    coverageDirectory: './build',
     coveragePathIgnorePatterns: ['/node_modules/', '/dist/'],
-    coverageReporters: ['json-summary', 'text', 'lcov'],
+    coverageReporters: ['json-summary', 'text'],
     // Uncomment the below lines if you would like to enforce a coverage threshold
     // for your action. This will fail the build if the coverage is below the
     // specified thresholds.
@@ -22,7 +22,10 @@ export default {
     extensionsToTreatAsEsm: ['.ts'],
     moduleFileExtensions: ['ts', 'js'],
     preset: 'ts-jest',
-    reporters: ['default'],
+    reporters: [
+        'default',
+        ['jest-junit', { outputDirectory: './build', outputName: 'junit.xml' }]
+    ],
     resolver: 'ts-jest-resolver',
     testEnvironment: 'node',
     testMatch: ['**/*.test.ts'],
