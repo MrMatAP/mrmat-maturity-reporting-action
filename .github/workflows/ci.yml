@@ -56,12 +56,12 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                   name: Lint Results
-                  path: build/lint.json
+                  path: build/lint.sarif
             - name: Upload Sarif lint results
               if: ${{ github.event_name == 'pull_request' }}
               uses: github/codeql-action/upload-sarif@v3
               with:
-                sarif_file: build/lint.json
+                sarif_file: build/lint.sarif
                 wait-for-processing: true
             - name: Test
               run: npm run ci-test
@@ -84,7 +84,7 @@ jobs:
               uses: ./
               with:
                   lint_format: sarif
-                  lint_report: build/lint.json
+                  lint_report: build/lint.sarif
                   unit_test_format: junit
                   unit_test_report: build/junit.xml
                   coverage_format: json
