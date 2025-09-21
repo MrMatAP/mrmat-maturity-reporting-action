@@ -3,12 +3,30 @@ import * as core from '@actions/core'
 import { Report } from './report.js'
 import * as fs from 'node:fs'
 import path from 'node:path'
+import { XMLParser } from 'fast-xml-parser'
 
 export class UnitTestReport implements Report {
-        tool: string = 'Unknown'
+    tool: string = 'Unknown'
+    errors?: number
+    failures?: number
+    skipped?: number
+    tests?: number
+    time?: number
 
-    constructor(tool: string) {
+    constructor(
+        tool: string,
+        errors?: number,
+        failures?: number,
+        skipped?: number,
+        tests?: number,
+        time?: number
+    ) {
         this.tool = tool ?? this.tool
+        this.errors = errors ?? this.errors
+        this.failures = failures ?? this.failures
+        this.skipped = skipped ?? this.skipped
+        this.tests = tests ?? this.tests
+        this.time = time ?? this.time
     }
 
     markdown(): string {
@@ -23,7 +41,15 @@ export class UnitTestReport implements Report {
 }
 
 function junit_report(report_path: string) {
+    const xml = fs.readFileSync(report_path, { encoding: 'utf8' })
+    const parser = new XMLParser({ ignoreAttributes: false })
+    const doc = parser.parse(xml)
     const report = new UnitTestReport('junit')
+    report.errors = parseInt(doc.testsuite['@_errors'])
+    report.failures = parseInt(doc.testsuite['@_failures'])
+    report.skipped = parseInt(doc.testsuite['@_skipped'])
+    report.tests = parseInt(doc.testsuite['@_tests'])
+    report.time = parseFloat(doc.testsuite['@_time'])
     return report
 }
 
