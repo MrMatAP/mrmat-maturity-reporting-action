@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="3" failures="0" errors="0" time="0.511">
+  <testsuite name="Coverage Reporting" errors="0" failures="0" skipped="0" timestamp="2025-09-21T11:13:36" time="0.225" tests="1">
+    <testcase classname="Coverage Reporting Returns {&quot;complexity&quot;: 0, &quot;timestamp&quot;: &quot;1758450878994&quot;, &quot;tool&quot;: &quot;cobertura&quot;, &quot;total_branches&quot;: 102, &quot;total_branches_covered&quot;: 34, &quot;total_branches_pct&quot;: 0.3333, &quot;total_lines&quot;: 970, &quot;total_lines_covered&quot;: 431, &quot;total_lines_pct&quot;: 0.4443, &quot;version&quot;: &quot;7.10.6&quot;}" name="Coverage Reporting Returns {&quot;complexity&quot;: 0, &quot;timestamp&quot;: &quot;1758450878994&quot;, &quot;tool&quot;: &quot;cobertura&quot;, &quot;total_branches&quot;: 102, &quot;total_branches_covered&quot;: 34, &quot;total_branches_pct&quot;: 0.3333, &quot;total_lines&quot;: 970, &quot;total_lines_covered&quot;: 431, &quot;total_lines_pct&quot;: 0.4443, &quot;version&quot;: &quot;7.10.6&quot;}" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="Linter Reporting" errors="0" failures="0" skipped="0" timestamp="2025-09-21T11:13:37" time="0.08" tests="1">
+    <testcase classname="Linter Reporting Returns {&quot;duration&quot;: &quot;8.987&quot;, &quot;errors&quot;: 0, &quot;failures&quot;: 1, &quot;linter&quot;: &quot;mypy&quot;, &quot;messages&quot;: [Array], &quot;skips&quot;: 0, &quot;tests&quot;: 1}" name="Linter Reporting Returns {&quot;duration&quot;: &quot;8.987&quot;, &quot;errors&quot;: 0, &quot;failures&quot;: 1, &quot;linter&quot;: &quot;mypy&quot;, &quot;messages&quot;: [Array], &quot;skips&quot;: 0, &quot;tests&quot;: 1}" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="GitHub Actions Interface" errors="0" failures="0" skipped="0" timestamp="2025-09-21T11:13:37" time="0.064" tests="1">
+    <testcase classname="GitHub Actions Interface Returns $expected" name="GitHub Actions Interface Returns $expected" time="0.008">
+    </testcase>
+  </testsuite>
+</testsuites>

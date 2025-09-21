@@ -74,9 +74,9 @@ jobs:
               id: local-reporting
               uses: ./
               with:
-                lint_report: build/lint.xml
+                lint_report: build/lint.json
                 unit_test_report: build/junit.xml
-                coverage_report: build/coverage.xml
+                coverage_report: build/coverage-summary.json
             - name: Print Report
               run: echo "${{ steps.local-reporting.outputs.report }}"
 
