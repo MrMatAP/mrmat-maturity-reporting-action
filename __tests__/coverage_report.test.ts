@@ -29,7 +29,8 @@ describe('Coverage Reporting', () => {
         },
         {
             coverage_format: 'json',
-            coverage_report: '__tests__/samples/typescript/coverage-summary.json',
+            coverage_report:
+                '__tests__/samples/typescript/coverage-summary.json',
             expected: {
                 tool: 'json',
                 total_lines: 86,

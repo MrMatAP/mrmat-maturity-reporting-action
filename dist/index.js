@@ -29072,7 +29072,7 @@ class CoverageReport {
         report += '| Lines | Covered | Percentage |\n';
         report += '| --- | --- | --- |\n';
         report += `| ${this.total_lines} | ${this.total_lines_covered} | ${this.total_lines_pct} |\n\n`;
-        report += '| Branches | Covered | Valid |\n';
+        report += '| Branches | Covered | Percentage |\n';
         report += '| --- | --- | --- |\n';
         report += `| ${this.total_branches} | ${this.total_branches_covered} | ${this.total_branches_pct} |\n\n`;
         report += '\n';
@@ -29095,6 +29095,18 @@ function cobertura_report(report_path) {
     report.complexity = parseInt(doc.coverage['@_complexity']);
     return report;
 }
+function json_report(report_path) {
+    const raw = fs.readFileSync(report_path, { encoding: 'utf8' });
+    const doc = JSON.parse(raw);
+    const report = new CoverageReport('json');
+    report.total_lines = doc.total.lines.total;
+    report.total_lines_covered = doc.total.lines.covered;
+    report.total_lines_pct = doc.total.lines.pct;
+    report.total_branches = doc.total.branches.total;
+    report.total_branches_covered = doc.total.branches.covered;
+    report.total_branches_pct = doc.total.branches.pct;
+    return report;
+}
 function parse_coverage_report(coverage_format, coverage_report) {
     const report_path = require$$1.resolve(coverage_report);
     if (!fs.existsSync(report_path))
@@ -29103,6 +29115,8 @@ function parse_coverage_report(coverage_format, coverage_report) {
     switch (coverage_format.toLowerCase()) {
         case 'cobertura':
             return cobertura_report(report_path);
+        case 'json':
+            return json_report(report_path);
         default:
             throw new Error(`Unknown coverage format: ${coverage_format}`);
     }
