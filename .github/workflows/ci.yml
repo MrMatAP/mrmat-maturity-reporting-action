@@ -81,7 +81,7 @@ jobs:
                   lint_report: build/lint.json
                   unit_test_format: junit
                   unit_test_report: build/junit.xml
-                  coverage_format: cobertura
+                  coverage_format: json
                   coverage_report: build/coverage-summary.json
             - name: Print Report
               run: echo "${{ steps.local-reporting.outputs.report }}"
