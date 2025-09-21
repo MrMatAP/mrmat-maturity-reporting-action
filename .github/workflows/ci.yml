@@ -48,10 +48,9 @@ jobs:
             - name: Build
               run: npm run bundle
             - name: Lint
-              if: ${{ github.event_name == 'pull_request' }}
               run: npm run ci-lint
             - name: Upload Lint results
-              #if: ${{ github.event_name == 'pull_request' }}
+              if: ${{ github.event_name == 'pull_request' }}
               uses: actions/upload-artifact@v4
               with:
                 name: Lint Results
