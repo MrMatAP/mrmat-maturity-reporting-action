@@ -29009,8 +29009,10 @@ function eslint_report(report_path) {
     const raw = fs.readFileSync(report_path, { encoding: 'utf8' });
     const doc = JSON.parse(raw);
     const report = new LinterReport('eslint');
-    doc.each((e) => (report.errors += e.errorCount));
-    doc.each((e) => (report.failures += e.fatalErrorCount));
+    report.errors = 0;
+    doc.forEach((e) => (report.errors += e.errorCount));
+    report.failures = 0;
+    doc.forEach((e) => (report.failures += e.fatalErrorCount));
     report.tests = doc.length;
     return report;
 }
@@ -29108,8 +29110,18 @@ function parse_coverage_report(coverage_format, coverage_report) {
 
 class UnitTestReport {
     tool = 'Unknown';
-    constructor(tool) {
+    errors;
+    failures;
+    skipped;
+    tests;
+    time;
+    constructor(tool, errors, failures, skipped, tests, time) {
         this.tool = tool ?? this.tool;
+        this.errors = errors ?? this.errors;
+        this.failures = failures ?? this.failures;
+        this.skipped = skipped ?? this.skipped;
+        this.tests = tests ?? this.tests;
+        this.time = time ?? this.time;
     }
     markdown() {
         let report = '## Unit Test Report\n\n';
@@ -29121,12 +29133,26 @@ class UnitTestReport {
         return report;
     }
 }
+function junit_report(report_path) {
+    const xml = fs.readFileSync(report_path, { encoding: 'utf8' });
+    const parser = new XMLParser({ ignoreAttributes: false });
+    const doc = parser.parse(xml);
+    const report = new UnitTestReport('junit');
+    report.errors = parseInt(doc.testsuites.testsuite['@_errors']);
+    report.failures = parseInt(doc.testsuites.testsuite['@_failures']);
+    report.skipped = parseInt(doc.testsuites.testsuite['@_skipped']);
+    report.tests = parseInt(doc.testsuites.testsuite['@_tests']);
+    report.time = parseFloat(doc.testsuites.testsuite['@_time']);
+    return report;
+}
 function parse_unit_test_report(unit_test_format, unit_test_report) {
     const report_path = path.resolve(unit_test_report);
     if (!fs.existsSync(report_path))
         return new UnitTestReport('missing');
     coreExports.info(`Parsing unit test report: ${report_path}`);
     switch (unit_test_format.toLowerCase()) {
+        case 'junit':
+            return junit_report(report_path);
         default:
             throw new Error(`Unknown unit test format: ${unit_test_format}`);
     }

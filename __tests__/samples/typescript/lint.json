@@ -1,194 +1,188 @@
 [
-  {
-    "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/__fixtures__/core.ts",
-    "messages": [],
-    "suppressedMessages": [],
-    "errorCount": 0,
-    "fatalErrorCount": 0,
-    "warningCount": 0,
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "usedDeprecatedRules": []
-  },
-  {
-    "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/__fixtures__/github.ts",
-    "messages": [],
-    "suppressedMessages": [],
-    "errorCount": 0,
-    "fatalErrorCount": 0,
-    "warningCount": 0,
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "usedDeprecatedRules": []
-  },
-  {
-    "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/__tests__/coverage_report.test.ts",
-    "messages": [],
-    "suppressedMessages": [],
-    "errorCount": 0,
-    "fatalErrorCount": 0,
-    "warningCount": 0,
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "usedDeprecatedRules": []
-  },
-  {
-    "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/__tests__/lint_report.test.ts",
-    "messages": [],
-    "suppressedMessages": [],
-    "errorCount": 0,
-    "fatalErrorCount": 0,
-    "warningCount": 0,
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "usedDeprecatedRules": []
-  },
-  {
-    "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/__tests__/main.test.ts",
-    "messages": [],
-    "suppressedMessages": [],
-    "errorCount": 0,
-    "fatalErrorCount": 0,
-    "warningCount": 0,
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "usedDeprecatedRules": []
-  },
-  {
-    "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/eslint.config.mjs",
-    "messages": [],
-    "suppressedMessages": [],
-    "errorCount": 0,
-    "fatalErrorCount": 0,
-    "warningCount": 0,
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "usedDeprecatedRules": []
-  },
-  {
-    "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/jest.config.js",
-    "messages": [],
-    "suppressedMessages": [],
-    "errorCount": 0,
-    "fatalErrorCount": 0,
-    "warningCount": 0,
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "usedDeprecatedRules": []
-  },
-  {
-    "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/rollup.config.ts",
-    "messages": [],
-    "suppressedMessages": [],
-    "errorCount": 0,
-    "fatalErrorCount": 0,
-    "warningCount": 0,
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "usedDeprecatedRules": []
-  },
-  {
-    "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/src/coverage.ts",
-    "messages": [],
-    "suppressedMessages": [],
-    "errorCount": 0,
-    "fatalErrorCount": 0,
-    "warningCount": 0,
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "usedDeprecatedRules": []
-  },
-  {
-    "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/src/index.ts",
-    "messages": [],
-    "suppressedMessages": [],
-    "errorCount": 0,
-    "fatalErrorCount": 0,
-    "warningCount": 0,
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "usedDeprecatedRules": []
-  },
-  {
-    "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/src/lint.ts",
-    "messages": [],
-    "suppressedMessages": [],
-    "errorCount": 0,
-    "fatalErrorCount": 0,
-    "warningCount": 0,
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "usedDeprecatedRules": []
-  },
-  {
-    "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/src/main.ts",
-    "messages": [],
-    "suppressedMessages": [],
-    "errorCount": 0,
-    "fatalErrorCount": 0,
-    "warningCount": 0,
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "usedDeprecatedRules": []
-  },
-  {
-    "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/src/report.ts",
-    "messages": [],
-    "suppressedMessages": [],
-    "errorCount": 0,
-    "fatalErrorCount": 0,
-    "warningCount": 0,
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "usedDeprecatedRules": []
-  },
-  {
-    "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/src/unit_test.ts",
-    "messages": [
-      {
-        "ruleId": "@stylistic/indent",
-        "severity": 1,
-        "message": "Expected indentation of 4 spaces but found 8.",
-        "line": 8,
-        "column": 1,
-        "nodeType": "Identifier",
-        "messageId": "wrongIndentation",
-        "endLine": 8,
-        "endColumn": 9,
-        "fix": {
-          "range": [
-            184,
-            192
-          ],
-          "text": "    "
-        }
-      },
-      {
-        "ruleId": "prettier/prettier",
-        "severity": 2,
-        "message": "Delete `····`",
-        "line": 8,
-        "column": 5,
-        "nodeType": null,
-        "messageId": "delete",
-        "endLine": 8,
-        "endColumn": 9,
-        "fix": {
-          "range": [
-            188,
-            192
-          ],
-          "text": ""
-        }
-      }
-    ],
-    "suppressedMessages": [],
-    "errorCount": 1,
-    "fatalErrorCount": 0,
-    "warningCount": 1,
-    "fixableErrorCount": 1,
-    "fixableWarningCount": 1,
-    "source": "import * as core from '@actions/core'\n\nimport { Report } from './report.js'\nimport * as fs from 'node:fs'\nimport path from 'node:path'\n\nexport class UnitTestReport implements Report {\n        tool: string = 'Unknown'\n\n    constructor(tool: string) {\n        this.tool = tool ?? this.tool\n    }\n\n    markdown(): string {\n        let report = '## Unit Test Report\\n\\n'\n        if (this.tool === 'missing') {\n            report += 'No unit test report present\\n\\n'\n            return report\n        }\n        report += `Tool: ${this.tool}\\n`\n        return report\n    }\n}\n\nexport function parse_unit_test_report(\n    unit_test_format: string,\n    unit_test_report: string\n): Report {\n    const report_path = path.resolve(unit_test_report)\n    if (!fs.existsSync(report_path)) return new UnitTestReport('missing')\n    core.info(`Parsing unit test report: ${report_path}`)\n    switch (unit_test_format.toLowerCase()) {\n        default:\n            throw new Error(`Unknown unit test format: ${unit_test_format}`)\n    }\n}\n",
-    "usedDeprecatedRules": []
-  }
+    {
+        "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/__fixtures__/core.ts",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/__fixtures__/github.ts",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/__tests__/coverage_report.test.ts",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/__tests__/lint_report.test.ts",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/__tests__/main.test.ts",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/eslint.config.mjs",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/jest.config.js",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/rollup.config.ts",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/src/coverage.ts",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/src/index.ts",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/src/lint.ts",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/src/main.ts",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/src/report.ts",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/imfeldma/projects/mrmat-maturity-reporting-action/src/unit_test.ts",
+        "messages": [
+            {
+                "ruleId": "@stylistic/indent",
+                "severity": 1,
+                "message": "Expected indentation of 4 spaces but found 8.",
+                "line": 8,
+                "column": 1,
+                "nodeType": "Identifier",
+                "messageId": "wrongIndentation",
+                "endLine": 8,
+                "endColumn": 9,
+                "fix": {
+                    "range": [184, 192],
+                    "text": "    "
+                }
+            },
+            {
+                "ruleId": "prettier/prettier",
+                "severity": 2,
+                "message": "Delete `····`",
+                "line": 8,
+                "column": 5,
+                "nodeType": null,
+                "messageId": "delete",
+                "endLine": 8,
+                "endColumn": 9,
+                "fix": {
+                    "range": [188, 192],
+                    "text": ""
+                }
+            }
+        ],
+        "suppressedMessages": [],
+        "errorCount": 1,
+        "fatalErrorCount": 0,
+        "warningCount": 1,
+        "fixableErrorCount": 1,
+        "fixableWarningCount": 1,
+        "source": "import * as core from '@actions/core'\n\nimport { Report } from './report.js'\nimport * as fs from 'node:fs'\nimport path from 'node:path'\n\nexport class UnitTestReport implements Report {\n        tool: string = 'Unknown'\n\n    constructor(tool: string) {\n        this.tool = tool ?? this.tool\n    }\n\n    markdown(): string {\n        let report = '## Unit Test Report\\n\\n'\n        if (this.tool === 'missing') {\n            report += 'No unit test report present\\n\\n'\n            return report\n        }\n        report += `Tool: ${this.tool}\\n`\n        return report\n    }\n}\n\nexport function parse_unit_test_report(\n    unit_test_format: string,\n    unit_test_report: string\n): Report {\n    const report_path = path.resolve(unit_test_report)\n    if (!fs.existsSync(report_path)) return new UnitTestReport('missing')\n    core.info(`Parsing unit test report: ${report_path}`)\n    switch (unit_test_format.toLowerCase()) {\n        default:\n            throw new Error(`Unknown unit test format: ${unit_test_format}`)\n    }\n}\n",
+        "usedDeprecatedRules": []
+    }
 ]
