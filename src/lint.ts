@@ -73,6 +73,18 @@ function eslint_report(report_path: string): LinterReport {
     return report
 }
 
+function sarif_report(report_path: string): LinterReport {
+    const raw = fs.readFileSync(report_path, { encoding: 'utf8' })
+    const doc = JSON.parse(raw)
+    const report = new LinterReport('sarif')
+    report.errors = 0
+    doc.runs[0].results.forEach((e) => (report.errors += e.level === 'error' ? 1 : 0))
+    report.failures = 0
+    doc.runs[0].results.forEach((e) => (report.failures += e.level === 'error' ? 0 : 1))
+    report.tests = doc.runs[0].results.length
+    return report
+}
+
 export function parse_lint_report(
     lint_format: string,
     lint_report: string
@@ -88,6 +100,8 @@ export function parse_lint_report(
             return mypy_report(report_path)
         case 'eslint':
             return eslint_report(report_path)
+        case 'sarif':
+            return sarif_report(report_path)
         default:
             throw new Error(`Unknown linter format: ${lint_format}`)
     }

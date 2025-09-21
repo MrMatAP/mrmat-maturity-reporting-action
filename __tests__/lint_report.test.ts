@@ -37,6 +37,15 @@ describe('Linter Reporting', () => {
             expected: {
                 tool: 'eslint'
             }
+        },
+        {
+            lint_format: 'sarif',
+            lint_report: '__tests__/samples/typescript/eslint.sarif',
+            expected: {
+                tool: 'sarif',
+                errors: 1,
+                failures: 1,
+            }
         }
     ])('Returns $expected', ({ lint_format, lint_report, expected }) => {
         expect(parse_lint_report(lint_format, lint_report)).toMatchObject(
