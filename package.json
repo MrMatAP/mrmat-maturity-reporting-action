@@ -29,7 +29,7 @@
         "format:check": "npx prettier --check .",
         "lint": "npx eslint .",
         "package": "npx rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
-        "ci-lint": "npx esline --format json -o build/lint.json .",
+        "ci-lint": "npx eslint --format json -o build/lint.json .",
         "ci-test": "NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npx jest",
         "test": "NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npx jest"
     },
