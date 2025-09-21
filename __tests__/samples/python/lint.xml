@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuite errors="0" failures="1" name="mypy" skips="0" tests="1" time="8.987">
+  <testcase classname="mypy" file="mypy" line="1" name="mypy-py3_13-darwin" time="8.987">
+    <failure message="mypy produced messages">src/mhpython/async_tasks/base.py:79: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+src/mhpython/finance/csv_parser.py:86: error: Missing return statement  [return]
+src/mhpython/ddd/base.py:290: error: "DDDEntity" gets multiple values for keyword argument "name"  [misc]
+src/mhpython/finance/pdf_parser.py:155: error: Value of type "dict[Any, Any] | BaseModel" is not indexable  [index]
+src/mhpython/finance/pdf_parser.py:156: error: Value of type "dict[Any, Any] | BaseModel" is not indexable  [index]
+src/mhpython/finance/pdf_parser.py:158: error: Value of type "dict[Any, Any] | BaseModel" is not indexable  [index]</failure>
+  </testcase>
+</testsuite>

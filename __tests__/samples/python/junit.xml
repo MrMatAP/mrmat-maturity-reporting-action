@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites name="pytest tests">
+    <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="29" time="8.467"
+               timestamp="2025-09-21T12:34:30.595764+02:00" hostname="covenant.local">
+        <testcase classname="tests.test_async_tasks" name="test_async_task" time="8.016"/>
+        <testcase classname="tests.test_basic_lists" name="test_list_type" time="0.001"/>
+        <testcase classname="tests.test_basic_lists" name="test_list_mixed" time="0.001"/>
+        <testcase classname="tests.test_basic_lists" name="test_list_nested" time="0.000"/>
+        <testcase classname="tests.test_basic_lists" name="test_list_comprehension" time="0.000"/>
+        <testcase classname="tests.test_builtin" name="test_filter_integers" time="0.000"/>
+        <testcase classname="tests.test_builtin" name="test_filter_generator" time="0.000"/>
+        <testcase classname="tests.test_builtin" name="test_filter_complex" time="0.001"/>
+        <testcase classname="tests.test_ddd" name="test_entity_not_found_exception" time="0.040"/>
+        <testcase classname="tests.test_ddd" name="test_node_persistence" time="0.040"/>
+        <testcase classname="tests.test_ddd" name="test_add_set_cluster_on_node" time="0.039"/>
+        <testcase classname="tests.test_ddd" name="test_add_node_to_cluster" time="0.036"/>
+        <testcase classname="tests.test_ddd" name="test_move_node_to_another_cluster" time="0.041"/>
+        <testcase classname="tests.test_ddd" name="test_add_node_to_dirty_cluster" time="0.034"/>
+        <testcase classname="tests.test_ddd" name="test_rename_cluster" time="0.008"/>
+        <testcase classname="tests.test_decorators" name="test_greeting_decorator" time="0.000"/>
+        <testcase classname="tests.test_decorators" name="test_greeting_typeerror" time="0.000"/>
+        <testcase classname="tests.test_exceptions" name="test_exception_with_finally" time="0.000"/>
+        <testcase classname="tests.test_exceptions" name="test_exception_with_else" time="0.000"/>
+        <testcase classname="tests.test_functions" name="test_function_extra_args" time="0.000"/>
+        <testcase classname="tests.test_functions" name="test_function_extra_kwargs" time="0.000"/>
+        <testcase classname="tests.test_functions" name="test_function_with_all_three" time="0.000"/>
+        <testcase classname="tests.test_generators" name="test_generator_function" time="0.000"/>
+        <testcase classname="tests.test_generators" name="test_generator_expression" time="0.000"/>
+        <testcase classname="tests.test_localised" name="test_en_localisation" time="0.000"/>
+        <testcase classname="tests.test_localised" name="test_de_localisation" time="0.000"/>
+        <testcase classname="tests.test_localised" name="test_fr_localisation" time="0.000"/>
+        <testcase classname="tests.test_properties" name="test_property_ro" time="0.000"/>
+        <testcase classname="tests.test_types" name="test_sets" time="0.001"/>
+    </testsuite>
+</testsuites>
