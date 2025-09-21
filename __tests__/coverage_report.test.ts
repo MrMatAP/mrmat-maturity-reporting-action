@@ -26,6 +26,19 @@ describe('Coverage Reporting', () => {
                 total_branches_pct: 0.3333,
                 complexity: 0
             }
+        },
+        {
+            coverage_format: 'json',
+            coverage_report: '__tests__/samples/typescript/coverage-summary.json',
+            expected: {
+                tool: 'json',
+                total_lines: 86,
+                total_lines_covered: 82,
+                total_lines_pct: 95.34,
+                total_branches: 20,
+                total_branches_covered: 16,
+                total_branches_pct: 80
+            }
         }
     ])(
         'Returns $expected',

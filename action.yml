@@ -19,7 +19,7 @@ inputs:
         description: Path to the unit test report
         required: false
 
-    coverage_report_format:
+    coverage_format:
         description: Format of the coverage report
         required: false
         default: cobertura
